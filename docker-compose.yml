@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  neo4jexample:
+    image: java:8
+    container_name: "neo4jexample"
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - ./target:/usr/app
+    command: ["java", "-jar", "/usr/app/neo4j-spring-boot.jar"]
+
+  neo4j:
+    image: neo4j
+    container_name: "neo4j"
+    restart: always
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - $HOME/neo4j/data:/data
