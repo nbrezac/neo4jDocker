@@ -1,5 +1,10 @@
-FROM java:8
+FROM node:lts-alpine
+RUN npm install -g http-server
+WORKDIR /app
+COPY client/package*.json ./
+RUN npm install
+COPY client/. .
+RUN npm run build
 EXPOSE 8080
-ADD /target/neo4j-spring-boot.jar neo4j-spring-boot.jar
-ENTRYPOINT ["java", "-jar", "neo4j-spring-boot.jar"]
+CMD [ "http-server", "dist" ]
 
